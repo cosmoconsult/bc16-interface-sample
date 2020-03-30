@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "AdditionalImpl",
+			"name": "Additional Implementation"
+		},
+		{
+			"path": "BaseImpl",
+			"name": "Base Implementation"
+		}
+	],
+	"settings": {}
+}
