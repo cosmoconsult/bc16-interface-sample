@@ -1,9 +1,9 @@
-interface ISportsEvaluation
+interface "Sports Evaluation"
 {
     procedure GetEvaluation(): Text;
 }
 
-codeunit 50100 Basketball implements ISportsEvaluation
+codeunit 50100 Basketball implements "Sports Evaluation"
 {
     procedure GetEvaluation(): Text;
     begin
@@ -11,7 +11,7 @@ codeunit 50100 Basketball implements ISportsEvaluation
     end;
 }
 
-codeunit 50101 Tennis implements ISportsEvaluation
+codeunit 50101 Tennis implements "Sports Evaluation"
 {
     procedure GetEvaluation(): Text;
     begin
@@ -19,26 +19,30 @@ codeunit 50101 Tennis implements ISportsEvaluation
     end;
 }
 
-enum 50100 "SportsEvaluation Handler" implements ISportsEvaluation
+enum 50100 "Sports Evaluation Provider" implements "Sports Evaluation"
 {
     Extensible = true;
-    value(0; Basketball)
+    value(0; Default)
     {
-        Implementation = ISportsEvaluation = Basketball;
+        Implementation = "Sports Evaluation" = Basketball;
     }
-    value(1; Tennis)
+    value(1; Basketball)
     {
-        Implementation = ISportsEvaluation = Tennis;
+        Implementation = "Sports Evaluation" = Basketball;
+    }
+    value(2; Tennis)
+    {
+        Implementation = "Sports Evaluation" = Tennis;
     }
 }
 
-table 50100 "SportsEvaluation Setup"
+table 50100 "Sports Evaluation Setup"
 {
     DataClassification = CustomerContent;
 
     fields
     {
-        field(1; Implementation; Enum "SportsEvaluation Handler")
+        field(1; "Selected Sports Handler"; Enum "Sports Evaluation Provider")
         {
             DataClassification = CustomerContent;
 
@@ -46,12 +50,12 @@ table 50100 "SportsEvaluation Setup"
     }
 }
 
-page 50100 "SportsEvaluation Setup"
+page 50100 "Sports Evaluation Setup"
 {
     PageType = Card;
     ApplicationArea = All;
     UsageCategory = Administration;
-    SourceTable = "SportsEvaluation Setup";
+    SourceTable = "Sports Evaluation Setup";
 
     layout
     {
@@ -59,7 +63,7 @@ page 50100 "SportsEvaluation Setup"
         {
             group("Implementation Setup")
             {
-                field(Implementation; Implementation)
+                field("Selected Sports Handler"; "Selected Sports Handler")
                 {
                     ApplicationArea = All;
 
@@ -71,14 +75,14 @@ page 50100 "SportsEvaluation Setup"
 
 codeunit 50102 "SportsEvaluation Mgmt"
 {
-    procedure GetHandler(var SportsEvaluation: Interface ISportsEvaluation)
+    procedure GetHandler(var SportsEvaluation: Interface "Sports Evaluation")
     var
-        SportsEvaluationSetup: Record "SportsEvaluation Setup";
-        SportsEvaluationHandler: Enum "SportsEvaluation Handler";
+        SportsEvaluationSetup: Record "Sports Evaluation Setup";
+        SportsEvaluationHandler: Enum "Sports Evaluation Provider";
     begin
         SportsEvaluationSetup.Reset();
         if (SportsEvaluationSetup.FindFirst()) then
-            SportsEvaluation := SportsEvaluationSetup.Implementation
+            SportsEvaluation := SportsEvaluationSetup."Selected Sports Handler"
         else
             SportsEvaluation := SportsEvaluationHandler::Basketball;
     end;

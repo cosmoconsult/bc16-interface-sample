@@ -21,6 +21,6 @@ pageextension 50100 CustPageExt extends "Customer List"
     }
 
     var
-        SportsEvaluation: Interface ISportsEvaluation;
+        SportsEvaluation: Interface "Sports Evaluation";
         SportsEvaluationMgmt: Codeunit "SportsEvaluation Mgmt";
 }
