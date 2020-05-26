@@ -1,4 +1,4 @@
-codeunit 50103 Soccer implements ISportsEvaluation
+codeunit 50103 Soccer implements "Sports Evaluation"
 {
     procedure GetEvaluation(): Text;
     begin
@@ -6,10 +6,10 @@ codeunit 50103 Soccer implements ISportsEvaluation
     end;
 }
 
-enumextension 50110 AddSoccer extends "SportsEvaluation Handler"
+enumextension 50110 AddSoccer extends "Sports Evaluation Provider"
 {
     value(50110; Soccer)
     {
-        Implementation = ISportsEvaluation = Soccer;
+        Implementation = "Sports Evaluation" = Soccer;
     }
 }
