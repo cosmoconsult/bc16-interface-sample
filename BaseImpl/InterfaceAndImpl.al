@@ -84,6 +84,6 @@ codeunit 50102 "SportsEvaluation Mgmt"
         if (SportsEvaluationSetup.FindFirst()) then
             SportsEvaluation := SportsEvaluationSetup."Selected Sports Handler"
         else
-            SportsEvaluation := SportsEvaluationHandler::Basketball;
+            SportsEvaluation := SportsEvaluationHandler::Default;
     end;
 }
